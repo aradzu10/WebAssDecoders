@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "C:/Users/arzulti/Project/emsdk-master/emscripten/1.38.30/system/include"
             ],
             "defines": [
                 "_DEBUG",
