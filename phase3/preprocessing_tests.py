@@ -29,7 +29,7 @@ def test1():
 
     encrypt_and_save(scheme, message_path, cipher_path, key_path)
 
-    assert check_file_equals(message_path, cipher_path, key_path)
+    assert check_file_equals(message_path, cipher_path, key_path), "The files aren't equals"
 
 
 
