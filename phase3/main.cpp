@@ -1,16 +1,16 @@
-// #include <emscripten.h>
-//#include "substitution_cipher.h"
+#include "emscripten.h"
 #include <string>
+#include "substitution_cipher.h"
 using namespace std; 
 
-// EM_JS(void, run_code, (const char* str), {
-//     eval(UTF8ToString(str));
-// });
+EM_JS(void, run_code, (const char* str), {
+     eval(UTF8ToString(str));
+});
 
 int main() {
-    string alpha("");
-    string key("");
-    string input("");
-    string code("");
-    //SubsetituionCipher.decrypt(input, key, alpha, code);
+	string alpha;
+    string key;
+    string input;
+    string code;
+	SubstitutionCipher::decrypt(input, key, alpha, code);
 }

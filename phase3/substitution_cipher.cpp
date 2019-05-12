@@ -1,38 +1,35 @@
 #include <string>
 #include <ctype.h>
+#include "substitution_cipher.h"
 
 using namespace std;
 
-class SubsetituionCipher {
-    private:
-    static bool cipher(string input, string oldAlphabet, string newAlphabet, string &output)
-    {
-    	output = "";
-    	int inputLen = input.size();
+bool SubstitutionCipher::cipher(string input, string old_alphabet, string new_alphabet, string& output)
+{
+	output = "";
+	const int inputLen = input.size();
 
-    	if (oldAlphabet.size() != newAlphabet.size())
-    		return false;
+	if (old_alphabet.size() != new_alphabet.size())
+		return false;
 
-    	for (int i = 0; i < inputLen; ++i)
-    	{
-    		int oldCharIndex = oldAlphabet.find(tolower(input[i]));
+	for (auto i = 0; i < inputLen; ++i)
+	{
+		const int old_char_index = old_alphabet.find(tolower(input[i]));
 
-    		if (oldCharIndex >= 0)
-    			output += isupper(input[i]) ? toupper(newAlphabet[oldCharIndex]) : newAlphabet[oldCharIndex];
-    		else
-    			output += input[i];
-    	}
-    	return true;
-    }
+		if (old_char_index >= 0)
+			output += isupper(input[i]) ? toupper(new_alphabet[old_char_index]) : new_alphabet[old_char_index];
+		else
+			output += input[i];
+	}
+	return true;
+}
 
-    public:
-    static bool encrypt(string input, string plainAlphabet, string cipherAlphabet, string &output)
-    {
-    	return cipher(input, plainAlphabet, cipherAlphabet, output);
-    }
+bool SubstitutionCipher::encrypt(string input, string plainAlphabet, string cipherAlphabet, string &output)
+{
+	return cipher(input, plainAlphabet, cipherAlphabet, output);
+}
 
-    static bool decrypt(string input, string plainAlphabet, string cipherAlphabet, string &output)
-    {
-    	return cipher(input, cipherAlphabet, plainAlphabet, output);
-    }
+bool SubstitutionCipher::decrypt(string input, string plainAlphabet, string cipherAlphabet, string &output)
+{
+	return cipher(input, cipherAlphabet, plainAlphabet, output);
 }
