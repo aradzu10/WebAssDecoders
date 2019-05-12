@@ -2,9 +2,9 @@ import sys, os, random, string
 
 class SubsetituionCipher:
 
-    def __init__(self, alphabet):
+    def __init__(self, alphabet, key=None):
         self.alphabet = alphabet
-        self.key = self.__generate_key(alphabet)
+        self.key = key if key is not None else self.__generate_key(alphabet)
 
     def __generate_key(self, alphabet):
         alphabet = list(alphabet)
@@ -13,20 +13,20 @@ class SubsetituionCipher:
 
     def encrypt(self, plaintext):
         key_map = dict(zip(self.alphabet, self.key))
-        return ''.join(key_map.get(c.lower(), c) for c in plaintext)
+        return ''.join(key_map[c] for c in plaintext)
 
     def decrypt(self, cipher):
         key_map = dict(zip(self.key, self.alphabet))
-        return ''.join(key_map.get(c.lower(), c) for c in cipher)
+        return ''.join(key_map[c] for c in cipher)
 
     def write_key(self):
-        return "Alph: " + self.alphabet + "\n" + \
-                "Key: " + self.key + "\n"
+        return "Alph:" + self.alphabet + "\n" + \
+                "Key:" + self.key + "\n"
 
 
 def encrypt_and_save(scheme, message_path, cipher_path, key_path):
     with open(message_path, 'r') as f:
-        message = "".join(f.readlines())
+        message = f.read()
     
     with open(cipher_path, 'w') as f:
         f.write(scheme.encrypt(message))
@@ -46,7 +46,7 @@ def main():
     cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
     key_path = os.path.join(folder_name, "key")
     
-    scheme = SubsetituionCipher(string.printable)
+    scheme = SubsetituionCipher(string.ascii_letters + string.punctuation + " ")
 
     encrypt_and_save(scheme, message_path, cipher_path, key_path)
 
