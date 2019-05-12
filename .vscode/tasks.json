@@ -35,7 +35,7 @@
                 "/Fe:\"${workspaceFolder}/Release/${fileBasenameNoExtension}.exe\"",
                 "/Fd:\"${workspaceFolder}/Release/\"",
                 "/Fo:\"${workspaceFolder}/Release/\"",
-                "\"${file}\"", "\"${fileDirname}\"/**"
+                "\"${file}\"", "\"${fileDirname}\"/**.cpp"
             ]
         }
     ]
