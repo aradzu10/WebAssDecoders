@@ -1,0 +1,15 @@
+Arad:
+- Phase3: 
+    - Check C++ code works.
+    - Check WebAssembly works.
+- Phase2:
+    - Try to load dll for AES
+- Start Phase6
+
+Matan:
+- Phase4: 
+    - Preprocessing: Allready exist
+    - Find AES code implemntation
+- Start working on Phase5
+    - Read all data from files
+    - Look into emcscripten tutorials
