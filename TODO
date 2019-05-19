@@ -1,8 +1,5 @@
 Arad:
-- Phase3: 
-    - Check C++ code works.
-    - Check WebAssembly works.
-- Phase2:
+- Phase2 - Pass this
     - Try to load dll for AES
 - Start Phase6
 
