@@ -6,7 +6,7 @@ Arad:
 Matan:
 - Phase4: 
     - Preprocessing: Allready exist
-    - Find AES code implemntation
+    - Find AES code implemntation - V
 - Start working on Phase5
     - Read all data from files
     - Look into emcscripten tutorials
