@@ -37,6 +37,15 @@
                 "/Fo:\"${workspaceFolder}/Release/\"",
                 "\"${file}\"", "\"${fileDirname}\"/**.cpp"
             ]
+        },
+        {
+            "label": "Wasm Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/compile_wasm.bat",
+            "args": [
+                "\"${fileDirname}\"",
+                "\"${workspaceFolder}/Release/${fileBasenameNoExtension}.html\""
+            ]
         }
     ]
 }
