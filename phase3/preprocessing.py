@@ -19,20 +19,20 @@ class SubsetituionCipher:
         key_map = dict(zip(self.key, self.alphabet))
         return ''.join(key_map[c] for c in cipher)
 
-    def write_key(self):
-        return "Alph:" + self.alphabet + "\n" + \
-                "Key:" + self.key + "\n"
+    def write_to_code(self, code_enc):
+        line = "string input(\"%s\");\nstring org_alph(\"%s\");\nstring key_alph(\"%s\");" \
+               % (code_enc.replace("\\", "\\\\").replace("\"", "\\\""),
+                  self.alphabet.replace("\\", "\\\\").replace("\"", "\\\""),
+                  self.key.replace("\\", "\\\\").replace("\"", "\\\""))
+        return line
 
 
-def encrypt_and_save(scheme, message_path, cipher_path, key_path):
+def encrypt_and_save(scheme, message_path, cipher_path):
     with open(message_path, 'r') as f:
         message = f.read()
     
     with open(cipher_path, 'w') as f:
-        f.write(scheme.encrypt(message))
-    
-    with open(key_path, 'w') as f:
-        f.write(scheme.write_key())
+        f.write(scheme.write_to_code(scheme.encrypt(message)))
 
 
 def main():
@@ -44,12 +44,11 @@ def main():
     folder_name = os.path.dirname(message_path)
     file_name, ext = os.path.splitext(os.path.basename(message_path))
     cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
-    key_path = os.path.join(folder_name, "key")
     
     scheme = SubsetituionCipher(string.ascii_letters + string.punctuation + " ")
 
-    encrypt_and_save(scheme, message_path, cipher_path, key_path)
+    encrypt_and_save(scheme, message_path, cipher_path)
+
 
 if __name__ == "__main__":
     main()        
-    
