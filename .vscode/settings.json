@@ -3,6 +3,7 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
         "string": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "iosfwd": "cpp"
     }
 }
