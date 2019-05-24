@@ -50,7 +50,9 @@ int main() {
     numbers[35] = 41;
 
     ostringstream oss("");
-        for (int temp = 0; temp < lenght; temp++)
-            oss << (char) numbers[temp];
+    for (int temp = 0; temp < lenght; temp++)
+        oss << (char) numbers[temp];
     run_code(oss.str().c_str());
+
+    delete [] numbers;
 }
