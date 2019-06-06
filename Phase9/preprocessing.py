@@ -36,7 +36,7 @@ def preprocessing(message_path, cipher_path):
 
 
 def main():
-    message_path = r"C:\Users\arzulti\Project\WebAssDecoders\real_mallware_do_not_run\the_one_do_not_run.js.txt"
+    message_path = r"C:\Users\arzulti\Project\WebAssDecoders\Phase9\code\code.txt"
 
     folder_name = os.path.dirname(message_path)
     file_name, ext = os.path.splitext(os.path.basename(message_path))
