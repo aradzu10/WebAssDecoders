@@ -6,4 +6,4 @@ for /f "delims=" %%a in ('dir /s /b *.cpp') do (
  call set concat=%%concat%% %%a
  )
 
-emcc %concat% -o %2
+em++ %concat% -o %2

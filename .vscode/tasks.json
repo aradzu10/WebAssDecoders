@@ -44,7 +44,7 @@
             "command": "${workspaceFolder}/compile_wasm.bat",
             "args": [
                 "\"${fileDirname}\"",
-                "\"${workspaceFolder}/Release/${fileBasenameNoExtension}.html\""
+                "\"${workspaceFolder}/Release/${fileBasenameNoExtension}.js\""
             ]
         }
     ]
