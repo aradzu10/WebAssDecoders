@@ -1,0 +1,24 @@
+<svg width="690" height="1650" viewBox="0 0 69 165" text-rendering="optimizeLegibility" style="border: 0px; margin: 0px; padding: 0;" id="bit-booster">
+    <g>
+        <path d="M9,11C8,37.25,55,19.75,54,35" stroke-width="2" stroke-opacity="1" opacity="1" fill="none" stroke="#fae03c"/>
+        <path d="M9,11C8,37.25,40,19.75,39,35" stroke-width="2" stroke-opacity="1" opacity="1" fill="none" stroke="#f7786b"/>
+        <path d="M9,11C8,37.25,25,19.75,24,35" stroke-width="2" stroke-opacity="1" opacity="1" fill="none" stroke="#79c753"/>
+        <path d="M39,83C40,109.25,23,91.75,24,107" stroke-width="2" stroke-opacity="1" opacity="1" fill="none" stroke="#f7786b"/>
+        <path d="M24,131C25,157.25,8,139.75,9,155" stroke-width="2" stroke-opacity="1" opacity="1" fill="none" stroke="#79c753"/>
+        <path d="M9,131L9,155" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#034f84"/>
+        <path d="M24,107L24,131" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#79c753"/>
+        <path d="M24,83L24,107" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#79c753"/>
+        <path d="M39,59L39,83" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#f7786b"/>
+        <path d="M9,11L9,131" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#034f84"/>
+        <path d="M24,35L24,83" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#79c753"/>
+        <path d="M39,35L39,59" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#f7786b"/>
+        <path d="M54,35L54,35" stroke-width="2" stroke-opacity="1" opacity="1" stroke="#fae03c"/>
+        <circle id="C_0000006" cx="9" cy="155" r="4" fill="#034f84" stroke="none"/>
+        <circle id="C_0000004" cx="9" cy="131" r="4" fill="#034f84" stroke="none"/>
+        <circle id="C_0000005" cx="24" cy="107" r="4" fill="#79c753" stroke="none"/>
+        <circle id="C_0000003" cx="24" cy="83" r="4" fill="#79c753" stroke="none"/>
+        <circle id="C_0000002" cx="39" cy="59" r="4" fill="#f7786b" stroke="none"/>
+        <circle id="C_0000001" cx="54" cy="35" r="4" fill="#fae03c" stroke="none"/>
+        <circle id="C_0000000" cx="9" cy="11" r="4" fill="#034f84" stroke="none"/>
+    </g>
+</svg>

@@ -1,3 +1,3 @@
-string input("$.:;fC>?:..sWfw:;:rW#:e:;$.WN$esHF>X");
-string org_alph("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%%&'()*+,-./:;<=>?@[\\]^_`{|}~ ");
-string key_alph("$Hiv:qAwFLR.%%esYE;afOKoZ-pg\"@B*d#?UxNh`!(j^VS{nTz[l|~\\QJ+t>CX Dr)PyGu_bM&=</,kI'cm}]W");
+string input("sPLCJ|qdLPPmWJNLCLDW(L@LCsPWOs@mH_qS");
+string org_alph("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ");
+string key_alph("sHo~Li>N_/^PV@mM=CtJgQw:!%#K,;FU(dj}Ok\"G*IZfha]{u)r e?pYT.q|S'cD<Bz+Ab-X`\\REv&$lynx[W");
