@@ -20,6 +20,9 @@ def preprocessing(message_path, cipher_path):
             current_find = message[already_found:]
         else:
             current_find = current_find[:-1]
+    
+    if already_found != len(message):
+        raise Exception("Couldn't find all chars")
 
     code = "int lenght = %s;\n" % str(len(tabel_idxs)) + \
            "int *idxs_table = new int[2*%s];\n" % str(len(tabel_idxs)) + \
@@ -33,10 +36,7 @@ def preprocessing(message_path, cipher_path):
 
 
 def main():
-    if len(sys.argv) != 2:
-        return
-
-    message_path = sys.argv[-1]
+    message_path = r"C:\Users\arzulti\Project\WebAssDecoders\real_mallware_do_not_run\the_one_do_not_run.js.txt"
 
     folder_name = os.path.dirname(message_path)
     file_name, ext = os.path.splitext(os.path.basename(message_path))
