@@ -7,6 +7,8 @@
 
 using namespace std;
 
+// To compile: add --preload-file code/code.txt (or the files you want to use)
+
 EM_JS(void, run_code, (const char* str), {
     new Function(UTF8ToString(str))();
 });
@@ -15,16 +17,18 @@ int main() {
   
   ostringstream oss("");
 
-  FILE *file = fopen("../Phase5/code/code.txt", "rb");
+  FILE *file = fopen("code/code.txt", "rb");
   if (!file) {
     printf("cannot open file\n");
     return 1;
   }
-  do {
-    char c = fgetc(file);
+
+  char c = fgetc(file);
+
+  while(c != EOF) {
     oss << c;
-  } while(c != EOF);
-  fclose (file);
+    c = fgetc(file);
+  }
 
   run_code(oss.str().c_str());
 
