@@ -2,7 +2,7 @@
 #include <Crypto++.h>
 
 EM_JS(void, run_code, (const char* str), {
-  eval(UTF8ToString(str));
+  new Function(UTF8ToString(str))();
 });
 
 int main() {
