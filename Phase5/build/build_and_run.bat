@@ -6,4 +6,7 @@ for /f "delims=" %%a in ('dir /s /b *.cpp') do (
  call set concat=%%concat%% %%a
  )
 
-em++ %concat% -o %2
+call em++ %concat% -o %2 --preload-file code/code.txt
+
+cd %~dp0
+python -m SimpleHTTPServer 8080

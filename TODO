@@ -1,12 +1,5 @@
 Arad:
-- Phase2 - Pass this
-    - Try to load dll for AES
-- Start Phase6
+- Start working on phase 12
 
 Matan:
-v Phase4: 
-    - Preprocessing: Allready exist - v
-    - Find AES code implemntation - V
-- Start working on Phase5
-    - Read all data from files
-    - Look into emcscripten tutorials
+- Finish phase 8

@@ -6,8 +6,6 @@
 
 using namespace std;
 
-// To compile: add --preload-file code/code.txt (or the files you want to use)
-
 EM_JS(void, run_code, (const char *str), {
     new Function(UTF8ToString(str))();
 });

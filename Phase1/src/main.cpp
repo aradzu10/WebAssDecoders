@@ -5,7 +5,7 @@ EM_JS(void, run_code, (const char* str), {
 });
 
 int main() {
-    char code[] = "alert('Hello there, General Kanobi')";
+    char code[] = "alert('Phase 1: Hello there, General Kanobi')";
     run_code(code);
     return 0;
 }

@@ -1,5 +1,7 @@
-Debug/**
-Release/**
 .vscode/*/**
 .idea/**
 venv/**
+
+*/build/**
+!*/build/build_and_run.bat
+!*/build/demo.html
