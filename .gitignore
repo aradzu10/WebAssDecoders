@@ -2,6 +2,6 @@
 .idea/**
 venv/**
 
-*/build/**
-!*/build/build_and_run.bat
-!*/build/demo.html
+**/build/**
+!**/build/build_and_run.bat
+!**/build/demo.html
