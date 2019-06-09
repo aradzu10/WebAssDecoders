@@ -6,6 +6,8 @@
         "xstring": "cpp",
         "iosfwd": "cpp",
         "sstream": "cpp",
-        "cmath": "cpp"
-    }
+        "cmath": "cpp",
+        "iostream": "cpp"
+    },
+    "python.pythonPath": "venv\\Scripts\\python.exe"
 }

@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <emscripten.h>
 #include <string>
-#include <emscripten/html5.h>
+#include <emscripten.h>
 #include <sstream>
 #include <iostream>
 
@@ -9,28 +8,30 @@ using namespace std;
 
 // To compile: add --preload-file code/code.txt (or the files you want to use)
 
-EM_JS(void, run_code, (const char* str), {
+EM_JS(void, run_code, (const char *str), {
     new Function(UTF8ToString(str))();
 });
 
-int main() {
-  
-  ostringstream oss("");
+int main()
+{
 
-  FILE *file = fopen("code/code.txt", "rb");
-  if (!file) {
-    printf("cannot open file\n");
-    return 1;
-  }
+    ostringstream oss("");
+    FILE *file = fopen("code/code.txt", "rb");
 
-  char c = fgetc(file);
+    if (!file)
+    {
+        printf("cannot open file\n");
+        return 1;
+    }
 
-  while(c != EOF) {
-    oss << c;
-    c = fgetc(file);
-  }
-
-  run_code(oss.str().c_str());
-
-  return 0;
+    char c = fgetc(file);
+    while (!feof(file))
+    {
+        oss << c;
+        c = fgetc(file);
+    }
+    
+    run_code(oss.str().c_str());
+    
+    return 0;
 }
