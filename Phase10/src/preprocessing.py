@@ -4,7 +4,6 @@ import numpy as np
 
 
 def get_best_score(array, code, channels):
-    # TODO - need to find best by skips of channels
     min_score = np.infty
     min_index = -1
 
