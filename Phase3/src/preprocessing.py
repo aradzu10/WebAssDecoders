@@ -20,35 +20,61 @@ class SubsetituionCipher:
         return ''.join(key_map[c] for c in cipher)
 
     def write_to_code(self, code_enc):
-        line = "string input(\"%s\");\nstring org_alph(\"%s\");\nstring key_alph(\"%s\");" \
+        line = "    string input(\"%s\");\n    string org_alph(\"%s\");\n    string key_alph(\"%s\");" \
                % (code_enc.replace("\\", "\\\\").replace("\"", "\\\""),
                   self.alphabet.replace("\\", "\\\\").replace("\"", "\\\""),
                   self.key.replace("\\", "\\\\").replace("\"", "\\\""))
         return line
 
 
-def encrypt_and_save(scheme, message_path, cipher_path):
+def add_includes(code):
+    code = code + "#include <emscripten.h>\n"
+    code = code + "#include <string>\n"
+    code = code + "#include <iostream>\n"
+    code = code + "#include \"substitution_cipher.h\"\n"
+    code = code + "using namespace std;\n"
+    code = code + "\n"
+    return code
+
+def add_js(code):
+    code = code + "EM_JS(void, run_code, (const char* str), {\n"
+    code = code + "    new Function(UTF8ToString(str))();\n"
+    code = code + "});\n"
+    code = code + "\n"
+    return code
+
+def add_main(code, enc):
+    code = code + "int main() {\n"
+    code = code + enc + "\n"
+    code = code + "    string code(\"\");\n"
+    code = code + "    SubstitutionCipher::decrypt(input, org_alph, key_alph, code);\n"
+    code = code + "    run_code(code.c_str());\n}"
+    code = code + "\n"
+    return code
+
+
+def encrypt_and_save(scheme, message_path):
     with open(message_path, 'r') as f:
         message = f.read()
     
-    with open(cipher_path, 'w') as f:
-        f.write(scheme.write_to_code(scheme.encrypt(message)))
+    return scheme.write_to_code(scheme.encrypt(message))
 
+
+def create_main(main_path):
+    message_path = "C:\Projects\WebAssDecoders\phase3\code\code.txt"
+    scheme = SubsetituionCipher(string.ascii_letters + string.punctuation + " ")
+    enc = encrypt_and_save(scheme, message_path)
+
+    code = ""
+    code = add_includes(code)
+    code = add_js(code)
+    code = add_main(code, enc)
+    with open(main_path, 'w') as f:
+        f.write(code)
 
 def main():
-    if len(sys.argv) != 2:
-        return
-
-    message_path = sys.argv[-1]
-
-    folder_name = os.path.dirname(message_path)
-    file_name, ext = os.path.splitext(os.path.basename(message_path))
-    cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
-    
-    scheme = SubsetituionCipher(string.ascii_letters + string.punctuation + " ")
-
-    encrypt_and_save(scheme, message_path, cipher_path)
-
+    message_path = "C:\Projects\WebAssDecoders\phase3\src\main.cpp"
+    create_main(message_path)
 
 if __name__ == "__main__":
     main()        
