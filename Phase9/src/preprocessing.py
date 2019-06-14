@@ -3,7 +3,7 @@ from urllib.request import urlopen
 
 
 def preprocessing(message_path, cipher_path):
-    with open(message_path, 'r') as f:
+    with open(message_path, 'rb') as f:
         message = f.read()
 
     data = urlopen("https://code.jquery.com/jquery-3.4.1.min.js").read()
@@ -11,7 +11,7 @@ def preprocessing(message_path, cipher_path):
     tabel_idxs = []
     already_found = 0
     current_find = message
-    while current_find != "":
+    while current_find != bytes(0):
         idx = data.find(current_find)
         if idx != -1:
             tabel_idxs.append((idx, len(current_find)))
@@ -35,7 +35,7 @@ def preprocessing(message_path, cipher_path):
 
 
 def main():
-    message_path = r"C:\Users\arzulti\Project\WebAssDecoders\Phase9\code\code.txt"
+    message_path = r"..\code\code.txt"
 
     folder_name = os.path.dirname(message_path)
     file_name, ext = os.path.splitext(os.path.basename(message_path))
