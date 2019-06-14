@@ -1,4 +1,4 @@
-import sys, os, random, string
+import random, string
 
 
 def encode_to_c(line):
