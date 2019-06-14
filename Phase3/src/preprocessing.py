@@ -1,6 +1,11 @@
 import sys, os, random, string
 
-class SubsetituionCipher:
+
+def encode_to_c(line):
+    return line.replace("\\", "\\\\").replace("\"", "\\\"")
+
+
+class SubstitutionCipher:
 
     def __init__(self, alphabet, key=None):
         self.alphabet = alphabet
@@ -21,9 +26,9 @@ class SubsetituionCipher:
 
     def write_to_code(self, code_enc):
         line = "    string input(\"%s\");\n    string org_alph(\"%s\");\n    string key_alph(\"%s\");" \
-               % (code_enc.replace("\\", "\\\\").replace("\"", "\\\""),
-                  self.alphabet.replace("\\", "\\\\").replace("\"", "\\\""),
-                  self.key.replace("\\", "\\\\").replace("\"", "\\\""))
+               % (encode_to_c(code_enc),
+                  encode_to_c(self.alphabet),
+                  encode_to_c(self.key))
         return line
 
 
@@ -36,12 +41,14 @@ def add_includes(code):
     code = code + "\n"
     return code
 
+
 def add_js(code):
     code = code + "EM_JS(void, run_code, (const char* str), {\n"
     code = code + "    new Function(UTF8ToString(str))();\n"
     code = code + "});\n"
     code = code + "\n"
     return code
+
 
 def add_main(code, enc):
     code = code + "int main() {\n"
@@ -61,8 +68,10 @@ def encrypt_and_save(scheme, message_path):
 
 
 def create_main(main_path):
-    message_path = "C:\Projects\WebAssDecoders\phase3\code\code.txt"
-    scheme = SubsetituionCipher(string.ascii_letters + string.punctuation + " ")
+    message_path = r"..\code\code.txt"
+    letters = list(string.ascii_letters + string.punctuation + " " + string.digits)
+    random.shuffle(letters)
+    scheme = SubstitutionCipher(''.join(letters))
     enc = encrypt_and_save(scheme, message_path)
 
     code = ""
@@ -72,9 +81,11 @@ def create_main(main_path):
     with open(main_path, 'w') as f:
         f.write(code)
 
+
 def main():
-    message_path = "C:\Projects\WebAssDecoders\phase3\src\main.cpp"
+    message_path = r"..\src\main.cpp"
     create_main(message_path)
+
 
 if __name__ == "__main__":
     main()        
