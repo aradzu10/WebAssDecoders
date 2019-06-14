@@ -1,6 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 
-#include <emscripten.h>
+// #include <emscripten.h>
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -8,9 +8,9 @@
 
 using namespace std;
 
-EM_JS(void, run_code, (const char* str), {
-     new Function(UTF8ToString(str))();
-});
+// EM_JS(void, run_code, (const char* str), {
+//      new Function(UTF8ToString(str))();
+// });
 
 int main() {
     int x, y, n;
@@ -23,7 +23,7 @@ int main() {
         return 1;
     }
     
-    int idx = ((int*) data)[0];
+    int idx = 1442097;
 
     ostringstream oss("");
 
@@ -33,7 +33,7 @@ int main() {
         i++;
     }
     
-    run_code(oss.str().c_str());
+    // run_code(oss.str().c_str());
 
     stbi_image_free(data);
 }
