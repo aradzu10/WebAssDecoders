@@ -9,5 +9,12 @@
         "cmath": "cpp",
         "iostream": "cpp"
     },
-    "python.pythonPath": "venv\\Scripts\\python.exe"
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "macros": {
+        "commentAndContinue" : [
+            "editor.action.commentLine",
+            "cursorDown",
+            "cursorHome"
+        ]
+    }
 }
