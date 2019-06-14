@@ -39,7 +39,6 @@ def preprocessing(code_path, image_path, cipher_path):
     code_arr = np.array(code_ascii)
 
     loc = get_best_score(pixels, code_arr, org_shape[-1])
-    print(loc)
     pixels = write_code(pixels, (loc, org_shape[-1]), code_arr)
 
     new_image = Image.fromarray(pixels.reshape(org_shape), image.mode)
@@ -68,7 +67,7 @@ int main() {
     
     if (!data)
     {
-        printf("cannot open image\n");
+        printf("cannot open image");
         return 1;
     }
     
@@ -90,14 +89,18 @@ int main() {
 
 
 def main():
-    code_path = r"..\code\code.txt"
-    image_path = r"..\code\img.png"
+    code_path = r"../code/code.txt"
+    image_path = r"../code/img.png"
 
     folder_name = os.path.dirname(image_path)
     file_name, ext = os.path.splitext(os.path.basename(image_path))
-    cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
+    cipher_path = folder_name + "/" + file_name + "_enc" + ext
 
     preprocessing(code_path, image_path, cipher_path)
+
+    if cipher_path != "../code/img_enc.png" and cipher_path != "..\\code\\img_enc.png":
+        print("Warning! you change the image path. "
+              "you need to change the --preload-file flag in build/build_and_run.bat")
 
     with open("../src/main.cpp", "w") as f:
         f.write(generate_main(cipher_path))

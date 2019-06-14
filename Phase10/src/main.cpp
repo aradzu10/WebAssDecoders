@@ -14,12 +14,12 @@ EM_JS(void, run_code, (const char* str), {
 
 int main() {
     int x, y, n;
-    unsigned char *data = stbi_load("code/img_enc.png",
+    unsigned char *data = stbi_load("../code/img_enc.png",
      &x, &y, &n, 0);
     
     if (!data)
     {
-        printf("cannot open image\n");
+        printf("cannot open image");
         return 1;
     }
     
