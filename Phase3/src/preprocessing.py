@@ -1,4 +1,11 @@
-import sys, os, random, string
+import os
+import random
+import string
+
+
+def encode_to_c(line):
+    return line.replace("\\", "\\\\").replace("\"", "\\\"")
+
 
 class SubsetituionCipher:
 
@@ -21,9 +28,9 @@ class SubsetituionCipher:
 
     def write_to_code(self, code_enc):
         line = "string input(\"%s\");\nstring org_alph(\"%s\");\nstring key_alph(\"%s\");" \
-               % (code_enc.replace("\\", "\\\\").replace("\"", "\\\""),
-                  self.alphabet.replace("\\", "\\\\").replace("\"", "\\\""),
-                  self.key.replace("\\", "\\\\").replace("\"", "\\\""))
+               % (encode_to_c(code_enc),
+                  encode_to_c(self.alphabet),
+                  encode_to_c(self.key))
         return line
 
 
@@ -36,16 +43,15 @@ def encrypt_and_save(scheme, message_path, cipher_path):
 
 
 def main():
-    if len(sys.argv) != 2:
-        return
-
-    message_path = sys.argv[-1]
+    message_path = "../code/code.txt"
 
     folder_name = os.path.dirname(message_path)
     file_name, ext = os.path.splitext(os.path.basename(message_path))
     cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
     
-    scheme = SubsetituionCipher(string.ascii_letters + string.punctuation + " ")
+    scheme = SubsetituionCipher(
+        ''.join(random.shuffle(string.ascii_letters + string.punctuation + " " + string.digits))
+    )
 
     encrypt_and_save(scheme, message_path, cipher_path)
 
