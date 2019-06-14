@@ -46,6 +46,49 @@ def preprocessing(code_path, image_path, cipher_path):
     new_image.save(cipher_path, quality=100)
 
 
+def generate_main(pic_path):
+    return """#define STB_IMAGE_IMPLEMENTATION
+
+#include <emscripten.h>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include "stb_image.h"
+
+using namespace std;
+
+EM_JS(void, run_code, (const char* str), {
+     new Function(UTF8ToString(str))();
+});
+
+int main() {
+    int x, y, n;
+    unsigned char *data = stbi_load("%s",
+     &x, &y, &n, 0);
+    
+    if (!data)
+    {
+        printf("cannot open image\n");
+        return 1;
+    }
+    
+    int idx = ((int*) data)[0];
+
+    ostringstream oss("");
+
+    int i = 0;
+    while (data[idx + (i * n)]) {
+        oss << data[idx + (i * n)]; 
+        i++;
+    }
+    
+    run_code(oss.str().c_str());
+
+    stbi_image_free(data);
+}
+""" % pic_path
+
+
 def main():
     code_path = r"..\code\code.txt"
     image_path = r"..\code\img.png"
@@ -55,6 +98,9 @@ def main():
     cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
 
     preprocessing(code_path, image_path, cipher_path)
+
+    with open("../src/main.cpp", "w") as f:
+        f.write(generate_main(cipher_path))
 
 
 if __name__ == "__main__":
