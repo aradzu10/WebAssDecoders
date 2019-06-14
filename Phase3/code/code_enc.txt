@@ -1,3 +1,0 @@
-string input("sPLCJ|qdLPPmWJNLCLDW(L@LCsPWOs@mH_qS");
-string org_alph("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ");
-string key_alph("sHo~Li>N_/^PV@mM=CtJgQw:!%#K,;FU(dj}Ok\"G*IZfha]{u)r e?pYT.q|S'cD<Bz+Ab-X`\\REv&$lynx[W");
