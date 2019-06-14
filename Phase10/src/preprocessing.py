@@ -47,8 +47,8 @@ def preprocessing(code_path, image_path, cipher_path):
 
 
 def main():
-    code_path = r"C:\Users\arzulti\Project\WebAssDecoders\Phase10\code\code.txt"
-    image_path = r"C:\Users\arzulti\Project\WebAssDecoders\Phase10\code\img.png"
+    code_path = r"..\code\code.txt"
+    image_path = r"..\code\img.png"
 
     folder_name = os.path.dirname(image_path)
     file_name, ext = os.path.splitext(os.path.basename(image_path))

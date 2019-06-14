@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <emscripten.h>
 #include <string>
 #include <emscripten/html5.h>

@@ -205,7 +205,7 @@ def preprocessing(code_path):
 
 
 def main():
-    code_path = r"C:\Users\arzulti\Project\WebAssDecoders\Phase11\code\code.txt"
+    code_path = r"..\code\code.txt"
 
     preprocessing(code_path)
 
