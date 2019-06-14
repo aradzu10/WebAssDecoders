@@ -7,7 +7,7 @@ def encode_to_c(line):
     return line.replace("\\", "\\\\").replace("\"", "\\\"")
 
 
-class SubsetituionCipher:
+class SubstitutionCipher:
 
     def __init__(self, alphabet, key=None):
         self.alphabet = alphabet
@@ -49,7 +49,7 @@ def main():
     file_name, ext = os.path.splitext(os.path.basename(message_path))
     cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
     
-    scheme = SubsetituionCipher(
+    scheme = SubstitutionCipher(
         ''.join(random.shuffle(string.ascii_letters + string.punctuation + " " + string.digits))
     )
 
