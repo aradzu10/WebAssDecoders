@@ -1,13 +1,12 @@
 import os
-import sys
-import urllib2
+from urllib.request import urlopen
 
 
 def preprocessing(message_path, cipher_path):
     with open(message_path, 'r') as f:
         message = f.read()
 
-    data = urllib2.urlopen("https://code.jquery.com/jquery-3.4.1.min.js").read()
+    data = urlopen("https://code.jquery.com/jquery-3.4.1.min.js").read()
 
     tabel_idxs = []
     already_found = 0
