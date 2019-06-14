@@ -64,7 +64,7 @@ int main() {
 if __name__ == "__main__":
     code = r"C:\Projects\WebAssDecoders\Phase6\code\code.txt"
     length, chars, numbers = preprocessing(code)
-    with open("./phase6/src/main1.cpp", "w") as f:
+    with open("./phase6/src/main.cpp", "w") as f:
         f.write(generate_main(length, chars, numbers))
 
 
