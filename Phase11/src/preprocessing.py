@@ -1,8 +1,9 @@
+import glob
 import os
 import random
 import string
 
-from Phase11.utils import SafeDict, to_snake
+from Phase11.src.utils import SafeDict, to_snake
 
 PUBLIC_FUNC, PRIVATE_FUNC = range(2)
 
@@ -209,5 +210,13 @@ def main():
     preprocessing(code_path)
 
 
+def clear_irrelevant_files():
+    for file in glob.glob("*.cpp"):
+        os.remove(file)
+    for file in glob.glob("*.h"):
+        os.remove(file)
+
+
 if __name__ == "__main__":
+    clear_irrelevant_files()
     main()
