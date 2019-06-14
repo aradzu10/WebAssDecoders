@@ -1,4 +1,5 @@
-import sys, os, random, string
+import os
+import random
 
 
 def preprocessing(message_path, cipher_path):
@@ -18,6 +19,7 @@ def preprocessing(message_path, cipher_path):
     with open(cipher_path, 'w') as f:
         f.write(code)
 
+
 def build_table_string(table):
     bad_chars = ["'", '"']
     formatted = ""
@@ -29,8 +31,9 @@ def build_table_string(table):
 
     return formatted[:-2]
 
+
 def main():
-    message_path = "C:\Projects\WebAssDecoders\Phase6\code\code.txt"
+    message_path = r"..\code\code.txt"
 
     folder_name = os.path.dirname(message_path)
     file_name, ext = os.path.splitext(os.path.basename(message_path))

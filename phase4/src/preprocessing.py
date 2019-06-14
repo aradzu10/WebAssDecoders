@@ -48,5 +48,5 @@ int main() {{
 if __name__ == "__main__":
     code = r"..\code\code.txt"
     iv, key, enc = generate_encryption(code)
-    with open("./main1.cpp", "w") as f:
+    with open("./main.cpp", "w") as f:
         f.write(generate_main(iv, key, enc))

@@ -53,7 +53,7 @@ def create_numbers_string(numbered):
 
 
 def main():
-    message_path = "C:\Projects\WebAssDecoders\Phase8\code\code.txt"
+    message_path = "..\code\code.txt"
 
     folder_name = os.path.dirname(message_path)
     file_name, ext = os.path.splitext(os.path.basename(message_path))

@@ -28,9 +28,11 @@ def create_main(main_path):
     with open(main_path, 'w') as f:
         f.write(code)
 
+
 def main():
-    message_path = "C:\Projects\WebAssDecoders\phase1\src\main.cpp"
+    message_path = "..\src\main.cpp"
     create_main(message_path)
+
 
 if __name__ == "__main__":
     main()

@@ -36,6 +36,7 @@ int main()
 }
 """
 
+
 if __name__ == "__main__":
-    with open("./phase5/src/main1.cpp", "w") as f:
+    with open("../src/main.cpp", "w") as f:
         f.write(generate_main())
