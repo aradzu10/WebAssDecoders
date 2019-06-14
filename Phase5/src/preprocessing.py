@@ -1,4 +1,4 @@
-def generate_main():
+def generate_main(code_path):
     return """#include <stdio.h>
 #include <string>
 #include <emscripten.h>
@@ -15,7 +15,7 @@ int main()
 {
 
     ostringstream oss("");
-    FILE *file = fopen("code/code.txt", "rb");
+    FILE *file = fopen(\"""" + code_path + """", "rb");
 
     if (!file)
     {
@@ -38,5 +38,11 @@ int main()
 
 
 if __name__ == "__main__":
+    code_path = "code/code.txt"
+
+    if code_path != "code/code.txt":
+        print("Warning! you change the code path. "
+              "you need to change the --preload-file flag in build/build_and_run.bat")
+
     with open("../src/main.cpp", "w") as f:
-        f.write(generate_main())
+        f.write(generate_main("code/code.txt"))

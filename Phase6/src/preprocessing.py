@@ -4,7 +4,7 @@ import random
 
 def preprocessing(message_path):
     with open(message_path, 'r') as f:
-        message = f.read()
+        message = f.read().replace("\n", "")
     
     # numbered = [str(ord(c)) for c in message]
     chars = list(message)

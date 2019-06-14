@@ -3,7 +3,7 @@ import sys, os, random, string
 
 def preprocessing(message_path, cipher_path):
     with open(message_path, 'r') as f:
-        message = f.read()
+        message = f.read().replace("\n", "")
     
     str1 = "success"
     str2 = "wait"

@@ -189,7 +189,7 @@ int main() {{{{
 
 def preprocessing(code_path):
     with open(code_path) as f:
-        code = f.read()
+        code = f.read().replace("\n", "")
 
     root, classes = get_random_classes(len(set(code)))
 
