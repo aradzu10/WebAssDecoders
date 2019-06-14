@@ -1,4 +1,8 @@
-Debug/**
-Release/**
 .vscode/*/**
 .idea/**
+venv/**
+**/__pycache__/
+
+**/build/**
+!**/build/build_and_run.bat
+!**/build/demo.html

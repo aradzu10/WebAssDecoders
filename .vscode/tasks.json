@@ -12,10 +12,10 @@
                 "/ZI",
                 "/std:c++17",
                 "/Od",
-                "/Fe:\"${workspaceFolder}/Debug/${fileBasenameNoExtension}.exe\"",
-                "/Fd:\"${workspaceFolder}/Debug/\"",
-                "/Fo:\"${workspaceFolder}/Debug/\"",
-                "\"${file}\"", "\"${fileDirname}\"/**.cpp"
+                "/Fe:\"${fileDirname}/../build/${fileBasenameNoExtension}.exe\"",
+                "/Fd:\"${fileDirname}/../build/\"",
+                "/Fo:\"${fileDirname}/../build/\"",
+                "\"${fileDirname}\"/**.cpp"
             ],
             "group": {
                 "kind": "build",
@@ -32,19 +32,19 @@
                 "/EHsc",
                 "/std:c++17",
                 "/O2",
-                "/Fe:\"${workspaceFolder}/Release/${fileBasenameNoExtension}.exe\"",
-                "/Fd:\"${workspaceFolder}/Release/\"",
-                "/Fo:\"${workspaceFolder}/Release/\"",
-                "\"${file}\"", "\"${fileDirname}\"/**.cpp"
+                "/Fe:\"${fileDirname}/../build/${fileBasenameNoExtension}.exe\"",
+                "/Fd:\"${fileDirname}/../build/\"",
+                "/Fo:\"${fileDirname}/../build/\"",
+                "\"${fileDirname}\"/**.cpp"
             ]
         },
         {
             "label": "Wasm Build",
             "type": "shell",
-            "command": "${workspaceFolder}/compile_wasm.bat",
+            "command": "\"${fileDirname}/../build/build_and_run.bat\"",
             "args": [
-                "\"${fileDirname}\"",
-                "\"${workspaceFolder}/Release/${fileBasenameNoExtension}.js\""
+                "\"${fileDirname}/../\"",
+                "\"${fileDirname}/../build/${fileBasenameNoExtension}.js\""
             ]
         }
     ]

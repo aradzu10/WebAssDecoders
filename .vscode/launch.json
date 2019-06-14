@@ -5,24 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ Run Debug",
+            "name": "C++ Run",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Debug/${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}/../build/${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true
-        },
-        {
-            "name": "C++ Run Release",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/Debug/${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${fileDirname}\\..\\build",
             "environment": [],
             "externalConsole": true
         },
