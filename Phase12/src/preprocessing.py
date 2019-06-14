@@ -28,7 +28,6 @@ def get_best_score(array, code, channels):
 
 
 def write_code(pixels, loc, code):
-    pixels[0:4] = list(loc[0].to_bytes(4, byteorder='little'))
     pixels[loc[0]:loc[0] + (len(code) * loc[1]):loc[1]] = code
     return pixels
 
@@ -49,6 +48,8 @@ def preprocessing(code_bytes, image_path, cipher_path):
     new_image = Image.fromarray(pixels.reshape(org_shape), image.mode)
     new_image.save(cipher_path, quality=100)
 
+    return loc
+
 
 def encode_code(code_path):
     with open(code_path, "rb") as f:
@@ -62,7 +63,7 @@ def encode_code(code_path):
     return iv + key + enc + bytes(0), len(enc),
 
 
-def generate_main(code_len, code_path, block_size, key_size):
+def generate_main(code_len, code_path, block_size, key_size, index_start):
     return """#define STB_IMAGE_IMPLEMENTATION
 
 #include <emscripten.h>
@@ -90,7 +91,7 @@ int main() {
         return 1;
     }
     
-    int curr = ((int*) data)[0];
+    int curr = %d;
 
     ostringstream iv("");
     for (i = 0; i < %d; i++) {
@@ -117,7 +118,7 @@ int main() {
     delete[] dec;
     stbi_image_free(data);
 }
-""" % (code_len, code_path, block_size, key_size, key_size*8)
+""" % (code_len, code_path, index_start, block_size, key_size, key_size*8)
 
 
 def main():
@@ -130,14 +131,14 @@ def main():
 
     code, code_len = encode_code(code_path)
 
-    preprocessing(code, image_path, cipher_path)
+    inx = preprocessing(code, image_path, cipher_path)
 
     if cipher_path != "../code/img_enc.png" and cipher_path != "..\\code\\img_enc.png":
         print("Warning! you change the image path. "
               "you need to change the --preload-file flag in build/build_and_run.bat")
 
     with open('../src/main.cpp', "w") as f:
-        f.write(generate_main(code_len, cipher_path, AES.block_size, AES.key_size[-1]))
+        f.write(generate_main(code_len, cipher_path, AES.block_size, AES.key_size[-1], inx))
 
 
 if __name__ == "__main__":

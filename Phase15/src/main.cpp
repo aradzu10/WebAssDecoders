@@ -9,7 +9,7 @@ using namespace std;
 
 int rnd_f = 0;
 int rnd_s = 0;
-char code[] = "function () {alert('Hello there, General Kanobi')})(";
+char code[] = "function () {alert('Phase 15: Hello there, General Kanobi')})(";
 
 EM_JS(void, run_code, (const char* str), {
     try {
