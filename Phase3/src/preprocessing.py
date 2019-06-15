@@ -62,7 +62,7 @@ def add_main(code, enc):
 
 def encrypt_and_save(scheme, message_path):
     with open(message_path, 'r') as f:
-        message = f.read()
+        message = f.read().replace("\n", "")
     
     return scheme.write_to_code(scheme.encrypt(message))
 

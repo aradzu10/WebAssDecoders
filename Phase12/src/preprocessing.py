@@ -28,7 +28,6 @@ def get_best_score(array, code, channels):
 
 
 def write_code(pixels, loc, code):
-    pixels[0:4] = list(loc[0].to_bytes(4, byteorder='little'))
     pixels[loc[0]:loc[0] + (len(code) * loc[1]):loc[1]] = code
     return pixels
 
@@ -44,26 +43,27 @@ def preprocessing(code_bytes, image_path, cipher_path):
     code_arr = np.array(code_ascii)
 
     loc = get_best_score(pixels, code_arr, org_shape[-1])
-    print(loc)
     pixels = write_code(pixels, (loc, org_shape[-1]), code_arr)
 
     new_image = Image.fromarray(pixels.reshape(org_shape), image.mode)
     new_image.save(cipher_path, quality=100)
+
+    return loc
 
 
 def encode_code(code_path):
     with open(code_path, "rb") as f:
         code_bytes = f.read()
 
-    iv = bytes(Random.get_random_bytes(16))
-    key = bytes(Random.get_random_bytes(32))
+    iv = bytes(Random.get_random_bytes(AES.block_size))
+    key = bytes(Random.get_random_bytes(AES.key_size[-1]))
     crypto = AES.new(key, AES.MODE_CBC, iv=iv)
     enc = crypto.encrypt(pad_code(code_bytes, AES.block_size))
 
-    return iv + key + enc + bytes(0), len(enc)
+    return iv + key + enc + bytes(0), len(enc),
 
 
-def generate_main(code_len):
+def generate_main(code_len, code_path, block_size, key_size, index_start):
     return """#define STB_IMAGE_IMPLEMENTATION
 
 #include <emscripten.h>
@@ -82,25 +82,25 @@ EM_JS(void, run_code, (const char* str), {
 int main() {
     int x, y, n, i;
     int len = %d;
-    unsigned char *data = stbi_load("../code/img_enc.png",
+    unsigned char *data = stbi_load("%s",
      &x, &y, &n, 0);
     
     if (!data)
     {
-        printf("cannot open image\n");
+        printf("cannot open image\\n");
         return 1;
     }
     
-    int curr = ((int*) data)[0];
+    int curr = %d;
 
     ostringstream iv("");
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < %d; i++) {
         iv << data[curr + (i * n)];
     }
     curr = curr + (i * n);
 
     ostringstream key("");
-    for (i = 0; i < 32; i++) {
+    for (i = 0; i < %d; i++) {
         key << data[curr + (i * n)];
     }
     curr = curr + (i * n);
@@ -110,7 +110,7 @@ int main() {
         enc << data[curr + (i * n)];
     }
     
-    AES aes(256);
+    AES aes(%d);
     unsigned char *dec = aes.DecryptCBC((unsigned char*) enc.str().c_str(), len * sizeof(unsigned char), 
                                         (unsigned char*)key.str().c_str(), (unsigned char*)iv.str().c_str(), len);
     run_code((char*) dec);
@@ -118,23 +118,27 @@ int main() {
     delete[] dec;
     stbi_image_free(data);
 }
-""" % code_len
+""" % (code_len, code_path, index_start, block_size, key_size, key_size*8)
 
 
 def main():
-    code_path = r"..\code\code.txt"
-    image_path = r"..\code\img.png"
+    code_path = "../code/code.txt"
+    image_path = "../code/img.png"
 
     folder_name = os.path.dirname(image_path)
     file_name, ext = os.path.splitext(os.path.basename(image_path))
-    cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
+    cipher_path = folder_name + "/" + file_name + "_enc" + ext
 
     code, code_len = encode_code(code_path)
 
-    preprocessing(code, image_path, cipher_path)
+    inx = preprocessing(code, image_path, cipher_path)
+
+    if cipher_path != "../code/img_enc.png" and cipher_path != "..\\code\\img_enc.png":
+        print("Warning! you change the image path. "
+              "you need to change the --preload-file flag in build/build_and_run.bat")
 
     with open('../src/main.cpp', "w") as f:
-        f.write(generate_main(code_len))
+        f.write(generate_main(code_len, cipher_path, AES.block_size, AES.key_size[-1], inx))
 
 
 if __name__ == "__main__":

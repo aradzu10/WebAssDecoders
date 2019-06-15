@@ -1,4 +1,7 @@
-#include <emscripten.h>
+
+
+def generate_main(code):
+    return """#include <emscripten.h>
 #include <string>
 #include <emscripten/html5.h>
 #include <sstream>
@@ -9,7 +12,7 @@ using namespace std;
 
 int rnd_f = 0;
 int rnd_s = 0;
-char code[] = "function () {alert('Phase 15: Hello there, General Kanobi')})(";
+char code[] = \"""" + code + """";
 
 EM_JS(void, run_code, (const char* str), {
     try {
@@ -50,4 +53,19 @@ int main() {
     rnd_s = rand() % 7;
     emscripten_set_mousemove_callback(0, 0, 1, mouse_move);
     return 0;
-}
+}"""
+
+
+def main():
+    code_path = r"..\code\code.txt"
+    with open(code_path) as f:
+        code = f.read().replace("\n", "")
+
+    code = "function () {" + code + "})("
+
+    with open("../src/main.cpp", "w") as f:
+        f.write(generate_main(code))
+
+
+if __name__ == '__main__':
+    main()

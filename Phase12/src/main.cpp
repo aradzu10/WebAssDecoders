@@ -15,7 +15,7 @@ EM_JS(void, run_code, (const char* str), {
 
 int main() {
     int x, y, n, i;
-    int len = 64;
+    int len = 48;
     unsigned char *data = stbi_load("../code/img_enc.png",
      &x, &y, &n, 0);
     
@@ -25,7 +25,7 @@ int main() {
         return 1;
     }
     
-    int curr = ((int*) data)[0];
+    int curr = 998888;
 
     ostringstream iv("");
     for (i = 0; i < 16; i++) {

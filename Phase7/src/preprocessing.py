@@ -35,7 +35,7 @@ int main() {
 
 def init_numbers(message_path):
     with open(message_path, 'r') as f:
-        message = f.read()
+        message = f.read().replace("\n", "")
 
     chars = list(message)
     table = list(set(chars))

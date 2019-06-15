@@ -20,7 +20,6 @@ def get_best_score(array, code, channels):
 
 
 def write_code(pixels, loc, code):
-    pixels[0:4] = list(loc[0].to_bytes(4, byteorder='little'))
     pixels[loc[0]:loc[0] + (len(code) * loc[1]):loc[1]] = code
     return pixels
 
@@ -39,22 +38,73 @@ def preprocessing(code_path, image_path, cipher_path):
     code_arr = np.array(code_ascii)
 
     loc = get_best_score(pixels, code_arr, org_shape[-1])
-    print(loc)
     pixels = write_code(pixels, (loc, org_shape[-1]), code_arr)
 
     new_image = Image.fromarray(pixels.reshape(org_shape), image.mode)
     new_image.save(cipher_path, quality=100)
 
+    return loc
+
+
+def generate_main(pic_path, loc):
+    return """#define STB_IMAGE_IMPLEMENTATION
+
+#include <emscripten.h>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include "stb_image.h"
+
+using namespace std;
+
+EM_JS(void, run_code, (const char* str), {
+     new Function(UTF8ToString(str))();
+});
+
+int main() {
+    int x, y, n;
+    unsigned char *data = stbi_load("%s",
+     &x, &y, &n, 0);
+    
+    if (!data)
+    {
+        printf("cannot open image");
+        return 1;
+    }
+    
+    int idx = %d;
+
+    ostringstream oss("");
+
+    int i = 0;
+    while (data[idx + (i * n)]) {
+        oss << data[idx + (i * n)]; 
+        i++;
+    }
+    
+    run_code(oss.str().c_str());
+
+    stbi_image_free(data);
+}
+""" % (pic_path, loc)
+
 
 def main():
-    code_path = r"..\code\code.txt"
-    image_path = r"..\code\img.png"
+    code_path = r"../code/code.txt"
+    image_path = r"../code/img.png"
 
     folder_name = os.path.dirname(image_path)
     file_name, ext = os.path.splitext(os.path.basename(image_path))
-    cipher_path = os.path.join(folder_name, file_name + "_enc" + ext)
+    cipher_path = folder_name + "/" + file_name + "_enc" + ext
 
-    preprocessing(code_path, image_path, cipher_path)
+    indx = preprocessing(code_path, image_path, cipher_path)
+
+    if cipher_path != "../code/img_enc.png" and cipher_path != "..\\code\\img_enc.png":
+        print("Warning! you change the image path. "
+              "you need to change the --preload-file flag in build/build_and_run.bat")
+
+    with open("../src/main.cpp", "w") as f:
+        f.write(generate_main(cipher_path, indx))
 
 
 if __name__ == "__main__":

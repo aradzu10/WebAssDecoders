@@ -5,4 +5,4 @@ venv/**
 
 **/build/**
 !**/build/build_and_run.bat
-!**/build/demo.html
+!**/build/*.html

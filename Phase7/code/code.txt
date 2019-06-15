@@ -1,1 +1,1 @@
-(function () {alert('Phase 7: Hello there, General Kanobi')})()
+alert('Phase 7: Hello there, General Kanobi')
