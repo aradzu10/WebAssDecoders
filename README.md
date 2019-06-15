@@ -4,8 +4,8 @@
 
 ## Project's Goals
 
-We would like to enable websites to hide their Javasctipt code. \
-We send decoder which create the hidden code at run-time. 
+We would like to enable websites to hide their Javasctipt code, and we are doing so by sending Decoders. \
+Decoder is a method to hide code by creating it at run-time.
 
 ## Phases
 
@@ -53,10 +53,12 @@ Every phase has tree folders:
 
 - Go to `build` folder and run `build_and_run.bat` \
 first arg: files to compile root folder, second arg: output location (assume: build/main.js) 
-- The script run server. Navigate to: [http://localhost:8080](http://localhost:8080)
+- The script run server. Navigate to: [http://localhost:8080/PhaseX.html](http://localhost:8080/PhaseX.html) (Replace X with the Phase) \
+We created a simple html to each phase. 
 
 #### Using VS code
 
 - Open main file 
 - In the toolbar. Terminal -> Run Task... -> Wasm Build
-- The script run server. Navigate to: [http://localhost:8080](http://localhost:8080)
+- The script run server. Navigate to: [http://localhost:8080/PhaseX.html](http://localhost:8080/PhaseX.html) (Replace X with the Phase) \
+We created a simple html to each phase. 
