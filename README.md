@@ -43,9 +43,9 @@ Every phase has tree folders:
 
 ### Prerequisites
 
--  Emscripten - we assume it stand next to repository folder
-|-- WebAssDecoder
-|-- emsdk-master
+-  Emscripten - we assume it stand next to repository folder \
+|-- WebAssDecoder \
+|-- emsdk-master 
 
 ### How to build and run
 
